@@ -51,7 +51,7 @@
 (define look-for-root
   (lambda(f1 negative-point positive-point epsi)
     (let (moy (average negative-point positive-point))
-    ())))
+    ((if (< (f1 moy) 0)))))))
 
 (display "test close-enough?")
 (newline)
