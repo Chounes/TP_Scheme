@@ -1,0 +1,15 @@
+Pour afficher text :
+  display
+
+Pour afficher res fct :
+  write
+
+let :
+  do what :
+    Créer une variabe et un espace de validité pour celle-ci
+    La variable une fois créer ne pourra être utilisé que dans l'espace définis par le let
+  usage :
+    (let (variable et son attribution) (espace de calcule dans lequel la variable est valide))
+  exemple :
+  (let ((m (average 10 14)))
+    (= m 12))
