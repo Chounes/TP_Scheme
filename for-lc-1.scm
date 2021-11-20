@@ -39,22 +39,35 @@
 ;  (lambda( lambda-b)
 ;    (lambda (t V0))))
 
+;Calcule la myenne de x et y
 (define average
   (lambda(x y)
     (/ (+ x y) 2)))
 
+
+;True si l'écart entre x et y et inférieur a epsilon
 (define close-enough?
   (lambda( x y epsilon)
     (< (abs (- x y)) epsilon)))
 
-
+;Calcule la valeur de f1 en 0 par dichotomie
 (define look-for-root
   (lambda(f1 negative-point positive-point epsi)
-    (let (moy (average negative-point positive-point))
-    ())))
+    (let ((moy (average negative-point positive-point)))
+    (if (close-enough? ( negative-point positive-point epsi))
+      moy
+      (if (< (f1 moy) 0) (look-for-root f1 moy positive-point epsi);if moy < 0 moy->negative-point
+                   (look-for-root f1 negative-point moy epsi))))));else moy->positive-point
 
-(display "test close-enough?")
+
+(define fUn
+  (lambda (x)
+    (- (* x x) 2)))
+
+
+
+(display "test look-for-root?")
 (newline)
-(write (close-enough? 10 30 12))
+(write (look-for-root (lambda(x)(- (* x x) 2)) 1 2.0))
 (newline)
 (newline)
