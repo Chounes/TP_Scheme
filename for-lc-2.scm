@@ -41,3 +41,66 @@
   ;;
   ;;  Principal call:
   (if (or (< p 2) (zero? n)) n (rec-mystery n p)))
+
+
+(define simple-surface
+  (lambda (r f1)
+  (f1 (* r r))))
+
+(display "test simple-surface\n")
+(writeln/return (simple-surface 10 (lambda (p) (* pi p)))); surface cercle
+(writeln/return (simple-surface 10 (lambda (p) (* 4 pi p)))); surface sphère
+(writeln/return (simple-surface 10 (lambda (p) (* 1 p)))); surface carré
+(writeln/return (simple-surface 10 (lambda (p) (* 6 p)))); surface cube
+
+
+(define (in-inches m y f i)
+    (+ i (* 12
+            (+ f
+               (* 3
+                  (+  y(* 1760 m)))))))
+
+
+(define (inches-to-meters i)
+    (/ (* i 25.4) 1000))
+
+(define (british-to-metric m y f i)
+    (inches-to-meters (in-inches m y f i)))
+
+
+(define (to-metric nb1 nb2 nb3 metric0)
+    (lambda (unit1 unit2 unit3 unit4)
+      (+ metric0 (* unit4
+                    (+ nb3
+                      (* nb2
+                        (+ unit3 )
+                        (+ nb1 unit)
+                        ))))))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(define one-digit
+  (lambda (x)
+    (let ((y (first-mystery x)))
+    (if (> y 9)
+        (one-digit (remainder x 10))
+        y))))
