@@ -50,24 +50,34 @@
   (lambda( x y epsilon)
     (< (abs (- x y)) epsilon)))
 
-;Calcule la valeur de f1 en 0 par dichotomie
-(define look-for-root
-  (lambda(f1 negative-point positive-point epsi)
-    (let ((moy (average negative-point positive-point)))
-    (if (close-enough? ( negative-point positive-point epsi))
-      moy
-      (if (< (f1 moy) 0) (look-for-root f1 moy positive-point epsi);if moy < 0 moy->negative-point
-                   (look-for-root f1 negative-point moy epsi))))));else moy->positive-point
 
-
-(define fUn
-  (lambda (x)
-    (- (* x x) 2)))
+(define (dichotomy f1 r1 r2 epsilon)
+  ;;
+  (define (look-for-root negative-point positive-point)
+    ;;  Local function.
+    (let ((middle-point (average negative-point positive-point)))
+      (if (close-enough? negative-point positive-point epsilon)
+          middle-point
+          (let ((middle-point-image (f1 middle-point)))
+            (cond ((negative? middle-point-image)
+                   (look-for-root middle-point positive-point))
+                  ((positive? middle-point-image)
+                   (look-for-root negative-point middle-point))
+                  (else middle-point))))))
+    ;;
+    ;;  Launching:
+    (let ((image-1 (f1 r1)))
+      (if (negative? (* image-1 (f1 r2)))
+          (if (negative? image-1) (look-for-root r1 r2) (look-for-root r2 r1))
+          (begin
+            (display "Can't apply the dichotomy method, sorry!")
+            (newline)
+            #f))))
 
 
 
 (display "test look-for-root?")
 (newline)
-(write (look-for-root (lambda(x)(- (* x x) 2)) 1 2.0))
+(write (dichotomy (lambda (x) (- (* x x) 2.0)) 1.0 2.0 1e-4))
 (newline)
 (newline)
